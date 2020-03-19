@@ -27,9 +27,9 @@ jobs:
         $ProgressPreference = "SilentlyContinue"
         
         Write-Host Hello
-        Write-Host ${{ API_KEY }}
+        Write-Host ${{ env.API_KEY }}
       
-        $url = "https://api.elmah.io/v3/deployments?api_key=${{ API_KEY }}"
+        $url = "https://api.elmah.io/v3/deployments?api_key=${{ env.API_KEY }}"
         $body = @{
           version = "2.0.1"
           logId = "e512adf5-07af-4162-82a1-b5811513feaf"
