@@ -26,9 +26,9 @@ jobs:
         
         $url = "https://api.elmah.io/v3/deployments?api_key=${{ secrets.ELMAH_IO_API_KEY }}"
         $body = @{
-          version = ${{ github.run_number }}
+          version = "${{ github.run_number }}"
           userName = "${{ github.actor }}"
-          logId = "e512adf5-07af-4162-82a1-b5811513feaf"
+          logId = "${{ secrets.ELMAH_IO_LOG_ID }}"
         }
         [Net.ServicePointManager]::SecurityProtocol = `
           [Net.SecurityProtocolType]::Tls12,
