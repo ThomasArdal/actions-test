@@ -24,11 +24,12 @@ jobs:
       run: |
         $ProgressPreference = "SilentlyContinue"
         
+        Write-Host Hello
         Write-Host "${{ env.GITHUB_RUN_ID }}"
       
         $url = "https://api.elmah.io/v3/deployments?api_key=4a3a5f40013b442d9c1aa5e0a0c98bbf"
         $body = @{
-          version = "${{ env.GITHUB_RUN_ID }}"
+          version = "2.0.0"
           logId = "e512adf5-07af-4162-82a1-b5811513feaf"
         }
         [Net.ServicePointManager]::SecurityProtocol = `
