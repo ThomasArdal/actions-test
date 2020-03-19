@@ -24,7 +24,7 @@ jobs:
       run: |
         $ProgressPreference = "SilentlyContinue"
         
-        Write-Host Hello
+        Write-Host Hello ${{ github }}
       
         $url = "https://api.elmah.io/v3/deployments?api_key=${{ secrets.ELMAH_IO_API_KEY }}"
         $body = @{
