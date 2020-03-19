@@ -1,0 +1,39 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request 
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - name: Notify elmah.io
+      shell: powershell
+      run: |
+        $ProgressPreference = "SilentlyContinue"
+      
+        $url = "https://api.elmah.io/v3/deployments?api_key=4a3a5f40013b442d9c1aa5e0a0c98bbf"
+        $body = @{
+          version = "$env:BUILD_BUILDNUMBER"
+          description = "$env:BUILD_SOURCEVERSIONMESSAGE"
+          userName = "$env:BUILD_REQUESTEDFOR"
+          userEmail = "$env:BUILD_REQUESTEDFOREMAIL"
+          logId = "e512adf5-07af-4162-82a1-b5811513feaf"
+        }
+        [Net.ServicePointManager]::SecurityProtocol = `
+          [Net.SecurityProtocolType]::Tls12,
+          [Net.SecurityProtocolType]::Tls11,
+          [Net.SecurityProtocolType]::Tls
+        Invoke-RestMethod -Method Post -Uri $url -Body $body
