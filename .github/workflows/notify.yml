@@ -20,16 +20,18 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     - name: Notify elmah.io
+      env:
+        API_KEY: ${{ secrets.ELMAH_IO_API_KEY }}
       shell: powershell
       run: |
         $ProgressPreference = "SilentlyContinue"
         
         Write-Host Hello
-        Write-Host "${{ env.GITHUB_RUN_ID }}"
+        Write-Host ${{ API_KEY }}
       
-        $url = "https://api.elmah.io/v3/deployments?api_key=4a3a5f40013b442d9c1aa5e0a0c98bbf"
+        $url = "https://api.elmah.io/v3/deployments?api_key=${{ API_KEY }}"
         $body = @{
-          version = "2.0.0"
+          version = "2.0.1"
           logId = "e512adf5-07af-4162-82a1-b5811513feaf"
         }
         [Net.ServicePointManager]::SecurityProtocol = `
